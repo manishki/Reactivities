@@ -3,4 +3,6 @@ obj
 .vscode
 appseattings.json
 *.db
+node_modules
+
 
