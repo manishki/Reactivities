@@ -1,47 +1,42 @@
-import React from "react";
-import { Card, Image, Button } from "semantic-ui-react";
-import { IActivity } from "../../../app/models/activity";
+import React, { useContext, useEffect, Fragment } from "react";
+import { Grid } from "semantic-ui-react";
+import ActivityStore from "../../../app/stores/activityStore";
+import { observer } from "mobx-react-lite";
+import { RouteComponentProps } from "react-router-dom";
+import { ActivityDetailInfo } from "./ActivityDetailInfo";
+import { ActivityDetailChat } from "./ActivityDetailChat";
+import { ActivityDetailSideBar } from "./ActivityDetailSideBar";
+import ActivityDetailHeader from "./ActivityDetailHeader";
+// import { LoadingComponents } from '../../../app/layout/LoadingComponents';
 
-interface IProps {
-  activity: IActivity;
-  setEditMode: (editMode: boolean) => void;
-  setSelectedActivity: (activity: IActivity | null) => void;
+interface IDetailsParams {
+  id: string;
 }
-export const ActivityDetails: React.FC<IProps> = ({
-  activity,
-  setEditMode,
-  setSelectedActivity
+
+const ActivityDetails: React.FC<RouteComponentProps<IDetailsParams>> = ({
+  match
 }) => {
+  const activityStore = useContext(ActivityStore);
+  const { activity, loadActivity, loadingInitial } = activityStore;
+
+  useEffect(() => {
+    loadActivity(match.params.id);
+  }, [loadActivity, match.params.id]);
+
+  if (loadingInitial || !activity) return <Fragment />; //<LoadingComponents content='Loading activities...' /></Fragment>
+
   return (
-    <Card fluid>
-      <Image
-        src={`/asserts/categoryImages/${activity.category}.jpg`}
-        wrapped
-        ui={false}
-      />
-      <Card.Content>
-        <Card.Header>{activity.title}</Card.Header>
-        <Card.Meta>
-          <span>{activity.date}</span>
-        </Card.Meta>
-        <Card.Description>{activity.description}</Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <Button.Group widths={2}>
-          <Button
-            basic
-            onClick={() => setEditMode(true)}
-            color="blue"
-            content="Edit"
-          ></Button>
-          <Button
-            onClick={() => setSelectedActivity(null)}
-            basic
-            color="grey"
-            content="Cancel"
-          ></Button>
-        </Button.Group>
-      </Card.Content>
-    </Card>
+    <Grid>
+      <Grid.Column width={10}>
+        <ActivityDetailHeader activity={activity}/>
+        <ActivityDetailInfo activity={activity}/>
+        <ActivityDetailChat />
+      </Grid.Column>
+      <Grid.Column width={6}>
+        <ActivityDetailSideBar/>
+      </Grid.Column>
+    </Grid>
   );
 };
+
+export default observer(ActivityDetails);
