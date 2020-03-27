@@ -4,9 +4,9 @@ import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { ActivityDetailInfo } from "./ActivityDetailInfo";
 import { ActivityDetailChat } from "./ActivityDetailChat";
-import { ActivityDetailSideBar } from "./ActivityDetailSideBar";
 import ActivityDetailHeader from "./ActivityDetailHeader";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import ActivityDetailSideBar from "./ActivityDetailSideBar";
 // import { LoadingComponents } from '../../../app/layout/LoadingComponents';
 
 interface IDetailsParams {
@@ -38,7 +38,7 @@ const ActivityDetails: React.FC<RouteComponentProps<IDetailsParams>> = ({
         <ActivityDetailChat />
       </Grid.Column>
       <Grid.Column width={6}>
-        <ActivityDetailSideBar />
+        <ActivityDetailSideBar attendees ={activity.attendees}/>
       </Grid.Column>
     </Grid>
   );
