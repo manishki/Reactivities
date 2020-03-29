@@ -70,7 +70,8 @@ namespace Application.User
                     {
                         DisplayName = user.DisplayName,
                         Token = _jwtgenerator.CreateToken(user),
-                        Username = user.UserName
+                        Username = user.UserName,
+                        Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
                     };
                 }
 
