@@ -5,15 +5,13 @@ import {
   Form,
   Button,
   Comment,
-  TextArea
 } from "semantic-ui-react";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Form as FinalForm, Field } from "react-final-form";
 import { Link } from "react-router-dom";
 import { TextAreaInput } from "../../../app/common/form/TextAreaInput";
 import { observer } from "mobx-react-lite";
-import { formatDistance, format } from "date-fns";
-import { combineDateAndTime } from "../../../app/common/util/util";
+import { formatDistance } from "date-fns";
 
 const ActivityDetailChat = () => {
   const rootStore = useContext(RootStoreContext);
