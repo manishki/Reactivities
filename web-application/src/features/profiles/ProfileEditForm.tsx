@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { combineValidators, isRequired } from 'revalidate';
 import { Form, Button } from 'semantic-ui-react';
 import { TextInput } from '../../app/common/form/TextInput';
-import { TextAreaInput } from '../../app/common/form/TextAreaInput';
+import TextAreaInput from '../../app/common/form/TextAreaInput';
 
 const validate = combineValidators({
   displayName: isRequired('displayName')
